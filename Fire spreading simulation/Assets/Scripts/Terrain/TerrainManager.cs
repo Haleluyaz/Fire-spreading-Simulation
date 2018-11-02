@@ -28,15 +28,17 @@ public class TerrainManager : MonoBehaviour
 
     void GenerateObjectOnTerrain()
     {
-        //Generate random x,z,y position on the terrain
-        float randX = UnityEngine.Random.Range(m_TerrainPosX, m_TerrainPosX + m_TerrainWidth);
-        float randZ = UnityEngine.Random.Range(m_TerrainPosZ, m_TerrainPosZ + m_TerrainLength);
-        float yVal = Terrain.activeTerrain.SampleHeight(new Vector3(randX, 0, randZ));
 
-        //Apply Offset if needed
-        yVal = yVal + m_YOffset;
+		for (int i = 0; i < 40; i++)
+		{
+			//Generate random x,z,y position on the terrain
+			float randX = UnityEngine.Random.Range(m_TerrainPosX, m_TerrainPosX + m_TerrainWidth);
+			float randZ = UnityEngine.Random.Range(m_TerrainPosZ, m_TerrainPosZ + m_TerrainLength);
+			float yVal = Terrain.activeTerrain.SampleHeight(new Vector3(randX, 0, randZ));
 
-        //Generate the Prefab on the generated position
-        GameObject objInstance = (GameObject)Instantiate(m_Glass, new Vector3(randX, yVal, randZ), Quaternion.identity);
+			//Apply Offset if needed
+			yVal = yVal + m_YOffset;
+			GameObject objInstance = (GameObject)Instantiate(m_Glass, new Vector3(randX, yVal, randZ), Quaternion.identity);
+		}
     }
 }

@@ -54,6 +54,10 @@ MonoBehaviour:
   grassList: []
   glassObj: {fileID: 1897585565520566, guid: 2bc477bfd2dd14dfe817cc845cf807b6, type: 2}
   grassSpawnMaximum: 200
+  burningSpeedSecond: 1
+  burntDuration: 4
+  delayDestroy: 3
   defaultColor: {r: 0.38265565, g: 0.9528302, b: 0.04045032, a: 1}
   fireColor: {r: 0.9622642, g: 0.06808472, b: 0.06808472, a: 1}
   burntColor: {r: 0, g: 0, b: 0, a: 1}
+  gg: {fileID: 0}

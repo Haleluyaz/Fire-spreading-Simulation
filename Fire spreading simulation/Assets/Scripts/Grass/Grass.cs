@@ -8,20 +8,26 @@ public class Grass : MonoBehaviour
     private GrassManager grassManager;
     [SerializeField] private MeshCollider m_Collider;
     [SerializeField] private MeshRenderer m_MeshRenderer;
-    WaitForSeconds delayToFire;
-    WaitForSeconds burningSpeed;
-    WaitForSeconds delayBurnt;
-    WaitForSeconds delayDestroy;
+    [SerializeField] private Transform m_ChildTransform;
+
+    [Header("Delay timer")]
+    private WaitForSeconds burningSpeed;
+    private WaitForSeconds delayBurnt;
+    private WaitForSeconds delayDestroy;
 
     void Start()
     {
-        grassManager = GrassManager.Instance;
-        delayToFire = new WaitForSeconds(GrassManager.Instance.delayToFire);
-        burningSpeed = new WaitForSeconds(GrassManager.Instance.burningSpeed);
-        delayBurnt = new WaitForSeconds(GrassManager.Instance.delayBurnt);
-        delayDestroy = new WaitForSeconds(GrassManager.Instance.delayDestroy);
+        grassManager    = GrassManager.Instance;
+        burningSpeed    = new WaitForSeconds(GrassManager.Instance.burningSpeedSecond);
+        delayBurnt      = new WaitForSeconds(GrassManager.Instance.burntDuration);
+        delayDestroy    = new WaitForSeconds(GrassManager.Instance.delayDestroy);
 
         SwichState(GrassState.State.Normal);
+    }
+
+    void LateUpdate()
+    {
+        RotateCollider();
     }
 
     public void UpdateState(GrassState.State _state)
@@ -59,7 +65,7 @@ public class Grass : MonoBehaviour
     {
         yield return burningSpeed;
         SetColor(currentState);
-        yield return StartCoroutine("Search");
+        Search();
         SwichState(GrassState.State.Burnt);
     }
     IEnumerator OnBurnt()
@@ -70,13 +76,13 @@ public class Grass : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+
     #endregion
 
-    IEnumerator Search()
+    // Search with cone collider
+    void Search()
     {
         m_Collider.enabled = true;
-        yield return null;
-        // m_Collider.enabled = false;
     }
 
     public void SetColor(GrassState.State _state)
@@ -102,23 +108,25 @@ public class Grass : MonoBehaviour
         }
     }
 
+    public void RotateCollider()
+    {
+        m_ChildTransform.localEulerAngles = WindZoneManager.Instance.windZoneTrans.localEulerAngles;
+    }
+    public void SwichState(GrassState.State _state)
+    {
+        currentState = _state;
+        UpdateState(currentState);
+    }
 
     void OnTriggerEnter(Collider _other)
     {
         if(_other.tag == "Fireable")
         {
-            Debug.Log("GG");
             Grass otherGrass = _other.GetComponent<Grass>();
             if(otherGrass.currentState == GrassState.State.Normal)
             {
-                SwichState(GrassState.State.Fire);
+                otherGrass.SwichState(GrassState.State.Fire);
             }
         }
-    }
-
-    public void SwichState(GrassState.State _state)
-    {
-        currentState = _state;
-        UpdateState(currentState);
     }
 }

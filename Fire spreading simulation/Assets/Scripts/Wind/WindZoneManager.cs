@@ -5,6 +5,4 @@ using UnityEngine;
 public class WindZoneManager : Singleton<WindZoneManager>
 {
     public Transform windZoneTrans;
-
-    
 }

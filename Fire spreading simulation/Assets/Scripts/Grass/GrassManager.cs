@@ -9,20 +9,14 @@ public class GrassManager : Singleton<GrassManager> {
     public float grassSpawnMaximum;
 
     [Header("Timer")]
-    public float burningSpeed;
-    public float delayToFire;
-    public float delayBurnt;
+    public float burningSpeedSecond;
+    public float burntDuration;
     public float delayDestroy;
 
     [Header("Color")]
     public Color defaultColor;
     public Color fireColor;
     public Color burntColor;
-
-    void Start()
-    {
-        
-    }
 
     public void ClearAllGrass()
     {
@@ -44,9 +38,8 @@ public class GrassManager : Singleton<GrassManager> {
         }
     }
 
-    public void RandomPropagation()
+    public void RandomFirePropagation()
     {
-        //Random
-        
+
     }
 }

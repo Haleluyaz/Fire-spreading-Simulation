@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GrassManager : Singleton<GrassManager> {
 
-    public List<GameObject> grassList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> grassList = new List<GameObject>();
     public GameObject glassObj;
     public float grassSpawnMaximum;
+    [SerializeField] private int randomCount;
 
     [Header("Timer")]
-    public float burningSpeedSecond;
     public float burntDuration;
     public float delayDestroy;
 
@@ -20,13 +20,15 @@ public class GrassManager : Singleton<GrassManager> {
 
     public void ClearAllGrass()
     {
-        foreach (var item in grassList)
+        if(grassList.Count > 0)
         {
-            Destroy(item);
+            foreach (var item in grassList)
+            {
+                Destroy(item);
+            }
+            grassList.Clear();
         }
-        grassList.Clear();
     }
-
 
     public void StopSimulation()
     {
@@ -40,6 +42,11 @@ public class GrassManager : Singleton<GrassManager> {
 
     public void RandomFirePropagation()
     {
-
+        int rand = 0;
+        for (int i = 0; i < randomCount; i++)
+        {
+            rand = Random.Range(0, grassList.Count);
+            grassList[rand].GetComponent<Grass>().SwichState(GrassState.State.Fire);
+        }
     }
 }

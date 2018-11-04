@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114337224559140640}
   m_Layer: 0
   m_Name: Grass
-  m_TagString: Fireable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 64549887543453544}
   m_Layer: 0
   m_Name: Collider - Cone
-  m_TagString: Untagged
+  m_TagString: Fireable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

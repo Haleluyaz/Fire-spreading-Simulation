@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIDebug : MonoBehaviour
+public class UIDebug : Singleton<UIDebug>
 {
     [SerializeField] private Button m_GenerateBtn;
     [SerializeField] private Button m_ClearBtn;
-    [SerializeField] private Button m_PlayBtn;
     [SerializeField] private Button m_StopBtn;
     [SerializeField] private Button m_FireBtn;
     [SerializeField] private Toggle m_Add;
     [SerializeField] private Toggle m_Remove;
     [SerializeField] private Toggle m_Fire;
-    [SerializeField] private Slider m_WindSpread;
+    public Slider windSpreadValue;
     [SerializeField] private Slider m_WindDirection;
     [SerializeField] private Button m_QuitBtn;
 
@@ -26,10 +25,6 @@ public class UIDebug : MonoBehaviour
         m_ClearBtn.onClick.AddListener(()=>
         {
             GrassManager.Instance.ClearAllGrass();
-        });
-        m_PlayBtn.onClick.AddListener(()=>
-        {
-
         });
         m_StopBtn.onClick.AddListener(()=>
         {

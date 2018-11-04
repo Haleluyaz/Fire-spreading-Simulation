@@ -7,6 +7,7 @@ public class TerrainManager : Singleton<TerrainManager>
     private GrassManager m_GrassManager;
     [SerializeField] private Terrain m_Terrain;
     [SerializeField] private float m_YOffset = 0.5f;
+    private GameObject goParent;
 
     private float m_TerrainWidth;
     private float m_TerrainLength;
@@ -21,16 +22,17 @@ public class TerrainManager : Singleton<TerrainManager>
 
         m_TerrainPosX   = m_Terrain.transform.position.x;
         m_TerrainPosZ   = m_Terrain.transform.position.z;
-
-        // GenerateObjectOnTerrain();
     }
 
     public void GenerateObjectOnTerrain()
     {
-        float randX     = 0f;
-        float randZ     = 0f;
-        float yVal      = 0f;
-        GameObject grassObj = null;
+        GameObject grassObj     = null;
+        GameObject goParent     = new GameObject("Spawn Parent");
+        float randX             = 0f;
+        float randZ             = 0f;
+        float yVal              = 0f;
+
+        m_GrassManager.ClearAllGrass();
 		for (int i = 0; i < m_GrassManager.grassSpawnMaximum; i++)
 		{
 			//Generate random x,z,y position on the terrain
@@ -43,6 +45,7 @@ public class TerrainManager : Singleton<TerrainManager>
 			grassObj = (GameObject)Instantiate(m_GrassManager.glassObj, 
                                                 new Vector3(randX, yVal, randZ), 
                                                 Quaternion.identity);
+            grassObj.transform.SetParent(goParent.transform);
             m_GrassManager.grassList.Add(grassObj);
 		}
     }

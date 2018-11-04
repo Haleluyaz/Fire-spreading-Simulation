@@ -6,28 +6,23 @@ public class Grass : MonoBehaviour
 {
     public GrassState.State currentState;
     private GrassManager grassManager;
+    private UIDebug uIDebug;
     [SerializeField] private MeshCollider m_Collider;
     [SerializeField] private MeshRenderer m_MeshRenderer;
     [SerializeField] private Transform m_ChildTransform;
 
     [Header("Delay timer")]
-    private WaitForSeconds burningSpeed;
-    private WaitForSeconds delayBurnt;
+    private WaitForSeconds burntDuration;
     private WaitForSeconds delayDestroy;
 
     void Start()
     {
         grassManager    = GrassManager.Instance;
-        burningSpeed    = new WaitForSeconds(GrassManager.Instance.burningSpeedSecond);
-        delayBurnt      = new WaitForSeconds(GrassManager.Instance.burntDuration);
+        uIDebug         = UIDebug.Instance;
+        burntDuration   = new WaitForSeconds(GrassManager.Instance.burntDuration);
         delayDestroy    = new WaitForSeconds(GrassManager.Instance.delayDestroy);
 
         SwichState(GrassState.State.Normal);
-    }
-
-    void LateUpdate()
-    {
-        RotateCollider();
     }
 
     public void UpdateState(GrassState.State _state)
@@ -42,7 +37,7 @@ public class Grass : MonoBehaviour
                 break;
             case GrassState.State.Fire:
                 {
-                    StartCoroutine("OnFire");
+                    StartCoroutine("OnFirePropagation");
                 }
                 break;
             case GrassState.State.Burnt:
@@ -57,55 +52,37 @@ public class Grass : MonoBehaviour
 
     IEnumerator OnNormal()
     {
-        SetColor(currentState);
+        SetColor(grassManager.defaultColor);
         yield return null;
     }
 
-    IEnumerator OnFire()
+    IEnumerator OnFirePropagation()
     {
-        yield return burningSpeed;
-        SetColor(currentState);
+        yield return new WaitForSeconds(uIDebug.windSpreadValue.value);
+        SetColor(grassManager.fireColor);
         Search();
         SwichState(GrassState.State.Burnt);
     }
     IEnumerator OnBurnt()
     {
-        yield return delayBurnt;
-        SetColor(currentState);
+        yield return burntDuration;
+        SetColor(grassManager.burntColor);
         yield return delayDestroy;
+        grassManager.grassList.Remove(this.gameObject);
         Destroy(this.gameObject);
     }
 
-
     #endregion
 
-    // Search with cone collider
+    // Enable cone collider
     void Search()
     {
         m_Collider.enabled = true;
     }
 
-    public void SetColor(GrassState.State _state)
+    public void SetColor(Color _color)
     {
-        switch (_state)
-        {
-            case GrassState.State.None: Debug.Log("Fix it dude"); break;
-            case GrassState.State.Normal:
-                {
-                    m_MeshRenderer.material.color =  grassManager.defaultColor;
-                }
-                break;
-            case GrassState.State.Fire:
-                {
-                    m_MeshRenderer.material.color = grassManager.fireColor;
-                }
-                break;
-            case GrassState.State.Burnt:
-                {
-                    m_MeshRenderer.material.color = grassManager.burntColor;
-                }
-                break;
-        }
+        m_MeshRenderer.material.color =  _color;
     }
 
     public void RotateCollider()
@@ -120,13 +97,9 @@ public class Grass : MonoBehaviour
 
     void OnTriggerEnter(Collider _other)
     {
-        if(_other.tag == "Fireable")
+        if (_other.gameObject.tag == "Fireable" && currentState == GrassState.State.Normal)
         {
-            Grass otherGrass = _other.GetComponent<Grass>();
-            if(otherGrass.currentState == GrassState.State.Normal)
-            {
-                otherGrass.SwichState(GrassState.State.Fire);
-            }
+            SwichState(GrassState.State.Fire);
         }
     }
 }

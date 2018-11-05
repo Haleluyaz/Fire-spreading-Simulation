@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GrassManager : Singleton<GrassManager>
 {
-
     [HideInInspector] public List<GameObject> grassList = new List<GameObject>();
     public GameObject glassObj;
     public float grassSpawnMaximum;

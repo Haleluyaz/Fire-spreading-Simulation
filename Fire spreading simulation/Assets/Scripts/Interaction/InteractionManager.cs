@@ -63,7 +63,6 @@ public class InteractionManager : Singleton<InteractionManager>
         if (Input.GetMouseButtonDown(_index))
         {
             RaycastHit hit;
-            GameObject go = null;
             Ray ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
@@ -78,7 +77,6 @@ public class InteractionManager : Singleton<InteractionManager>
         if (Input.GetMouseButtonDown(_index))
         {
             RaycastHit hit;
-            GameObject go = null;
             Ray ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassManager : Singleton<GrassManager> {
+public class GrassManager : Singleton<GrassManager>
+{
 
     [HideInInspector] public List<GameObject> grassList = new List<GameObject>();
     public GameObject glassObj;
@@ -20,7 +21,7 @@ public class GrassManager : Singleton<GrassManager> {
 
     public void ClearAllGrass()
     {
-        if(grassList.Count > 0)
+        if (grassList.Count > 0)
         {
             foreach (var item in grassList)
             {
@@ -33,20 +34,26 @@ public class GrassManager : Singleton<GrassManager> {
     public void StopSimulation()
     {
         Grass grass = null;
-        foreach (var item in grassList)
+        if (grassList.Count > 0)
         {
-            grass = item.GetComponent<Grass>();
-            grass.StopAllCoroutines();
+            foreach (var item in grassList)
+            {
+                grass = item.GetComponent<Grass>();
+                grass.StopAllCoroutines();
+            }
         }
     }
 
     public void RandomFirePropagation()
     {
         int rand = 0;
-        for (int i = 0; i < randomCount; i++)
+        if (grassList.Count > 0)
         {
-            rand = Random.Range(0, grassList.Count);
-            grassList[rand].GetComponent<Grass>().SwichState(GrassState.State.Fire);
+            for (int i = 0; i < randomCount; i++)
+            {
+                rand = Random.Range(0, grassList.Count);
+                grassList[rand].GetComponent<Grass>().SwichState(GrassState.State.Fire);
+            }
         }
     }
 }

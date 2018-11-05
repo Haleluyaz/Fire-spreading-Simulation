@@ -25,7 +25,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4012091199310078
 Transform:
@@ -51,5 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef0e5fc7f2114badad530189482b5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnObject: {fileID: 0}
+  currentState: 0
+  m_SpawnObject: {fileID: 1897585565520566, guid: 2bc477bfd2dd14dfe817cc845cf807b6,
+    type: 2}
   m_Terrain: {fileID: 0}
+  m_YOffset: {x: 0, y: 0.5, z: 0}

@@ -25,6 +25,12 @@ public class Grass : MonoBehaviour
         SwichState(GrassState.State.Normal);
     }
 
+    // TODO : Change
+    void LateUpdate()
+    {
+        RotateCollider();
+    }
+
     public void UpdateState(GrassState.State _state)
     {
         switch (_state)

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65987176564874792}
   - component: {fileID: 54220313315309144}
   - component: {fileID: 114337224559140640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4008976969420884}
   - component: {fileID: 33762247949293562}
   - component: {fileID: 64549887543453544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider - Cone
   m_TagString: Fireable
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897585565520566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 22.044735, y: 0.2502594, z: 19.914553}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4008976969420884}

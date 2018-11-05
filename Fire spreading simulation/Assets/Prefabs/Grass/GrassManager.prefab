@@ -53,9 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grassList: []
   glassObj: {fileID: 1897585565520566, guid: 2bc477bfd2dd14dfe817cc845cf807b6, type: 2}
-  grassSpawnMaximum: 100
+  grassSpawnMaximum: 200
   randomCount: 5
-  burningSpeedSecond: 2
   burntDuration: 9
   delayDestroy: 6
   defaultColor: {r: 0.38265565, g: 0.9528302, b: 0.04045032, a: 1}

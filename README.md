@@ -1,5 +1,5 @@
 # Fire-spreading-Simulation
-- This is a very simple simulation of a fire spreading control by the wind.
+- This is a very simple simulation of a fire spreading directed by the wind.
 - No visual
 
 # Features
